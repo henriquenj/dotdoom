@@ -44,9 +44,13 @@
 
 
 (map! :leader
+      :desc "M-x" "SPC" #'execute-extended-command
+      :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
       (:prefix "w"
        :desc "Other window" "TAB" #'other-window
-       :desc "Maximize buffer" "m" #'doom/window-maximize-buffer))
+       :desc "Maximize buffer" "m" #'doom/window-maximize-buffer)
+      (:prefix "g"
+       :desc "Magit status" "s" #'magit-status))
 
 (with-eval-after-load 'magit
   (setq magit-log-section-commit-count 0))
