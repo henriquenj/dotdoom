@@ -43,6 +43,18 @@
 (setq org-directory "~/org/")
 
 
+;; This section contains general Evil rebindings.
+(after! evil
+  (define-key evil-motion-state-map (kbd "C-k") #'evil-scroll-line-up)
+  (define-key evil-motion-state-map (kbd "C-j") #'evil-scroll-line-down)
+  (define-key evil-motion-state-map (kbd "C-e") #'evil-end-of-line)
+  (define-key evil-motion-state-map (kbd "C-a") #'evil-first-non-blank)
+
+  (define-key evil-insert-state-map (kbd "C-e") #'move-end-of-line)
+  (define-key evil-insert-state-map (kbd "C-a") #'evil-first-non-blank)
+  ;; makes C-y works as default Emacs
+  (define-key evil-insert-state-map (kbd "C-y") nil))
+
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
