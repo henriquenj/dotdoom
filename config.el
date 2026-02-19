@@ -53,7 +53,11 @@
   (define-key evil-insert-state-map (kbd "C-e") #'move-end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") #'evil-first-non-blank)
   ;; makes C-y works as default Emacs
-  (define-key evil-insert-state-map (kbd "C-y") nil))
+  (define-key evil-insert-state-map (kbd "C-y") nil)
+
+  (map! :nvim
+        "C-s" #'+default/search-buffer
+        "C-S-s" #'isearch-forward))
 
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
