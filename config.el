@@ -69,6 +69,9 @@
        :desc "Magit status" "s" #'magit-status))
 
 (with-eval-after-load 'magit
+  ;; restore traditional magit window placement
+  (setq magit-display-buffer-function #'magit-display-buffer-traditional)
+  ;; remove "recent commits" section
   (setq magit-log-section-commit-count 0))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
