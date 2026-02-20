@@ -10,5 +10,4 @@ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/henriquenj/dotdoom ~/.doom.d
 ~/.emacs.d/bin/doom install
 ```
-TODO: add instructions for temp dir usage
 
