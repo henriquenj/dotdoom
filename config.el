@@ -59,6 +59,10 @@
         "C-s" #'+default/search-buffer
         "C-S-s" #'isearch-forward))
 
+(map! :when (modulep! :editor multiple-cursors)
+      :nv "C-n" #'evil-mc-make-and-goto-next-match
+      :nv "C-p" #'evil-mc-make-and-goto-prev-match)
+
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
