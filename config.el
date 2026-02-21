@@ -49,6 +49,7 @@
   (define-key evil-motion-state-map (kbd "C-j") #'evil-scroll-line-down)
   (define-key evil-motion-state-map (kbd "C-e") #'evil-end-of-line)
   (define-key evil-motion-state-map (kbd "C-a") #'evil-first-non-blank)
+  (define-key evil-visual-state-map (kbd "s") #'evil-surround-region)
 
   (define-key evil-insert-state-map (kbd "C-e") #'move-end-of-line)
   (define-key evil-insert-state-map (kbd "C-a") #'evil-first-non-blank)
