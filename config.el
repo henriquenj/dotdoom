@@ -42,6 +42,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+;; Scrach buffer starts in text-mode
+(setq doom-scratch-initial-major-mode 'text-mode)
+
 
 ;; This section contains general Evil rebindings.
 (after! evil
@@ -60,6 +63,15 @@
         "C-s" #'+default/search-buffer
         "C-S-s" #'isearch-forward))
 
+(defun +evil-buffer-new-start-in-text-mode-a (orig-fn &optional file)
+  "Force unnamed buffers created by `evil-buffer-new' to use `text-mode'."
+  (funcall orig-fn file)
+  (unless file
+    (with-current-buffer (window-buffer (selected-window))
+      (text-mode))))
+
+(advice-add 'evil-buffer-new :around #'+evil-buffer-new-start-in-text-mode-a)
+
 (map! :when (modulep! :editor multiple-cursors)
       :nv "C-n" #'evil-mc-make-and-goto-next-match
       :nv "C-p" #'evil-mc-make-and-goto-prev-match)
@@ -67,6 +79,8 @@
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
+      (:prefix "b"
+       :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer)
       (:prefix "w"
        :desc "Other window" "TAB" #'other-window
        :desc "Maximize buffer" "m" #'doom/window-maximize-buffer)
