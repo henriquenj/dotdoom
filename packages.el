@@ -30,6 +30,9 @@
 ;; with the `:disable' property:
 ;; (package! builtin-package :disable t)
 (package! evil-snipe :disable t)
+;; Disable this because I don't use ccls and its bindings shadow C-h prefix in
+;; CC buffers.
+(package! ccls :disable t)
 
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
