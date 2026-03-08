@@ -47,6 +47,10 @@
   (unless (display-graphic-p)
     (setq diff-hl-highlight-reference-function nil)))
 
+;; Spacemacs-style expand-region flow: `SPC v` to expand, then `V` to contract.
+(after! expand-region
+  (setq expand-region-contract-fast-key "V"))
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
@@ -88,6 +92,8 @@
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
+      :desc "Expand region" "v" #'er/expand-region
+      :desc "Contract region" "V" #'er/contract-region
       (:prefix "b"
        :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer)
       (:prefix "w"
