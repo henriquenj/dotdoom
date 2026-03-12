@@ -108,13 +108,11 @@
   ;; remove "recent commits" section
   (setq magit-log-section-commit-count 0))
 
-;; Spacemacs parity: switch between source/header with clangd.
-(autoload 'lsp-clangd-find-other-file "lsp-clangd" nil t)
-
+;; Spacemacs parity: switch between source/header.
 (map! :after cc-mode
       :map (c-mode-map c++-mode-map)
-      :n ", g a" #'lsp-clangd-find-other-file
-      :n ", g A" (cmd! (lsp-clangd-find-other-file t)))
+      :n ", g a" #'projectile-find-other-file
+      :n ", g A" #'projectile-find-other-file-other-window)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `with-eval-after-load' block, otherwise Doom's defaults may override your
