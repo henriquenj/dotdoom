@@ -58,6 +58,12 @@
 ;; Scrach buffer starts in text-mode
 (setq doom-scratch-initial-major-mode 'text-mode)
 
+;; Highlight trailing whitespace
+(setq-default show-trailing-whitespace t)
+;; Keep minibuffer/echo area free of trailing-whitespace highlights.
+(add-hook 'minibuffer-setup-hook #'doom-disable-show-trailing-whitespace-h)
+(add-hook 'minibuffer-inactive-mode-hook #'doom-disable-show-trailing-whitespace-h)
+
 
 ;; This section contains general Evil rebindings.
 (after! evil
