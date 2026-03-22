@@ -55,6 +55,14 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+;; Restore Org default for inactive timestamps in Org buffers.
+(after! org
+  (define-key org-mode-map (kbd "C-c !") #'org-time-stamp-inactive))
+
+;; Keep Flycheck bindings out of Org buffers.
+(after! flycheck
+  (add-hook 'org-mode-hook (lambda () (flycheck-mode -1))))
+
 ;; Scrach buffer starts in text-mode
 (setq doom-scratch-initial-major-mode 'text-mode)
 
