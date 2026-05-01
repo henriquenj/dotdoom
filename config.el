@@ -39,6 +39,10 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+
+;; Show major-mode icon in modeline (Doom disables it by default).
+(setq doom-modeline-major-mode-icon t)
+
 ;; Prevent dirvish from spawning expensive batch processes to fetch vc-state
 ;; per file when opening dired buffers in large repos.
 (after! dirvish
