@@ -41,7 +41,9 @@
 
 ;; Neovim-style VCS markers in TTY line-number margin.
 (after! diff-hl-margin
-  (setf (alist-get 'change diff-hl-margin-symbols-alist) "|"))
+  (setf (alist-get 'insert diff-hl-margin-symbols-alist) "┃"
+        (alist-get 'change diff-hl-margin-symbols-alist) "┃"
+        (alist-get 'delete diff-hl-margin-symbols-alist) "┃"))
 
 ;; Match GUI behavior in TTY: don't show staged hunks as reference markers.
 (after! diff-hl
