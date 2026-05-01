@@ -39,6 +39,11 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; Prevent dirvish from spawning expensive batch processes to fetch vc-state
+;; per file when opening dired buffers in large repos.
+(after! dirvish
+  (setq dirvish-attributes (remove 'vc-state dirvish-attributes)))
+
 ;; Neovim-style VCS markers in TTY line-number margin.
 (after! diff-hl-margin
   (setf (alist-get 'insert diff-hl-margin-symbols-alist) "┃"
