@@ -73,6 +73,14 @@
 (add-hook 'minibuffer-setup-hook #'doom-disable-show-trailing-whitespace-h)
 (add-hook 'minibuffer-inactive-mode-hook #'doom-disable-show-trailing-whitespace-h)
 
+;; Treat _ as a word character (like Neovim) so `*` searches the full SNAKE_CASE symbol.
+(modify-syntax-entry ?_ "w" (standard-syntax-table))
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook (lambda () (modify-syntax-entry ?_ "w"))))
+;; Make `*` use word boundaries, not symbol boundaries (matches Neovim behavior).
+(setq evil-symbol-word-search nil)
+
+
 
 ;; This section contains general Evil rebindings.
 (after! evil
