@@ -123,12 +123,20 @@
       :nv "C-n" #'evil-mc-make-and-goto-next-match
       :nv "C-p" #'evil-mc-make-and-goto-prev-match)
 
+(defun henrique/copy-clipboard-to-whole-buffer ()
+  "Copy clipboard and replace buffer."
+  (interactive)
+  (delete-region (point-min) (point-max))
+  (clipboard-yank)
+  (deactivate-mark))
+
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
       :desc "Expand region" "v" #'er/expand-region
       :desc "Contract region" "V" #'er/contract-region
       (:prefix "b"
+       :desc "Paste and replace buffer" "p" #'henrique/copy-clipboard-to-whole-buffer
        :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer)
       (:prefix "w"
        :desc "Other window" "TAB" #'other-window
