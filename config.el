@@ -130,6 +130,8 @@
   (clipboard-yank)
   (deactivate-mark))
 
+(map! "C-x C-b" #'ibuffer)
+
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
@@ -137,10 +139,13 @@
       :desc "Contract region" "V" #'er/contract-region
       (:prefix "b"
        :desc "Paste and replace buffer" "p" #'henrique/copy-clipboard-to-whole-buffer
-       :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer)
+       :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer
+       :desc "Kill buffer & window" "D" #'kill-buffer-and-window
+       :desc "List buffers (ibuffer)" "l" #'ibuffer)
       (:prefix "w"
        :desc "Other window" "TAB" #'other-window
-       :desc "Maximize buffer" "m" #'doom/window-maximize-buffer)
+       :desc "Maximize buffer" "m" #'doom/window-maximize-buffer
+       :desc "Kill buffer & window" "D" #'kill-buffer-and-window)
       (:prefix "g"
        :desc "Magit status" "s" #'magit-status))
 
