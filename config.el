@@ -130,6 +130,9 @@
   (clipboard-yank)
   (deactivate-mark))
 
+;; Open dired at project root when switching projects.
+(setq projectile-switch-project-action #'projectile-dired)
+
 (map! "C-x C-b" #'ibuffer)
 
 (map! :leader
