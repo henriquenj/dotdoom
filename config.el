@@ -133,6 +133,10 @@
 ;; Open dired at project root when switching projects.
 (setq projectile-switch-project-action #'projectile-dired)
 
+;; Restore Projectile's default: kill Dired, Magit, and other project buffers too.
+(after! projectile
+  (setq projectile-kill-buffers-filter 'kill-all))
+
 (map! "C-x C-b" #'ibuffer)
 
 (map! :leader
