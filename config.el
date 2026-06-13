@@ -139,6 +139,10 @@
 
 (map! "C-x C-b" #'ibuffer)
 
+;; Spacemacs parity: export Vertico/Consult search results to a buffer.
+(map! :map minibuffer-local-map
+      "C-c C-o" #'embark-export)
+
 (map! :leader
       :desc "M-x" "SPC" #'execute-extended-command
       :desc "Switch to last buffer" "TAB" #'evil-switch-to-windows-last-buffer
