@@ -67,8 +67,30 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-;; Restore Org default for inactive timestamps in Org buffers.
+;; Org mode workflow and bindings.
 (after! org
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "ONGOING(o)"
+           "WAITING(w)"
+           "PARKED(p)"
+           "|"
+           "DONE(c)"
+           "CANCELLED(c)"))
+        org-todo-keyword-faces
+        '(("TODO"      . (:foreground "IndianRed1" :weight bold))
+          ("NEXT"      . (:foreground "gold" :weight bold))
+          ("ONGOING"   . (:foreground "DeepSkyBlue1" :weight bold))
+          ("WAITING"   . (:foreground "orange" :weight bold))
+          ("PARKED"    . (:foreground "gray60" :weight bold))
+          ("DONE"      . (:foreground "PaleGreen3" :weight bold))
+          ("CANCELLED" . (:foreground "gray45"
+                                      :weight bold
+                                      :strike-through t))))
+
+  ;; Restore Org default for inactive timestamps in Org buffers.
   (define-key org-mode-map (kbd "C-c !") #'org-time-stamp-inactive))
 
 ;; Keep Flycheck bindings out of Org buffers.
