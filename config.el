@@ -48,6 +48,10 @@
 (after! dirvish
   (setq dirvish-attributes (remove 'vc-state dirvish-attributes)))
 
+;; Show everything in Dired. Doom enables dired-omit-mode by default, which
+;; hides .git, .DS_Store, compiled files, etc.
+(remove-hook 'dired-mode-hook #'dired-omit-mode)
+
 ;; Neovim-style VCS markers in TTY line-number margin.
 (after! diff-hl-margin
   (setf (alist-get 'insert diff-hl-margin-symbols-alist) "┃"
