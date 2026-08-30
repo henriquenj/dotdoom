@@ -1,0 +1,6 @@
+# Check every text file out with Unix (LF) line endings, on every platform.
+# Without this, Git for Windows' default core.autocrlf=true rewrites the
+# scripts in bin/ to CRLF, and Git Bash then fails to run them with a
+# "/usr/bin/env: bad interpreter" error that names an interpreter that is
+# plainly there. Binary files are detected and left alone by text=auto.
+* text=auto eol=lf
