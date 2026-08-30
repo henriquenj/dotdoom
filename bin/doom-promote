@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Record the currently-installed Doom revision as the tested-good pin.
+# Run this on the test machine once an upgrade has proven itself.
+set -euo pipefail
+
+EMACSDIR="${EMACSDIR:-$HOME/.emacs.d}"
+DOOMDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+{ printf '# Tested-good Doom revision. Deploy with bin/doom-deploy.\n'
+  printf '# core:    %s\n' "$(git -C "$EMACSDIR" describe --tags)"
+  printf '# modules: %s\n' "$(git -C "$EMACSDIR" rev-parse HEAD:sources/doom+)"
+  git -C "$EMACSDIR" rev-parse HEAD
+} > "$DOOMDIR/doom-pin"
+
+echo "Pinned:"
+sed 's/^/  /' "$DOOMDIR/doom-pin"
+echo
+echo "Review and commit:  git -C $DOOMDIR commit -m 'Pin Doom to ...' doom-pin"

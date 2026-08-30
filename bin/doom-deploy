@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Check out the tested-good Doom revision recorded in doom-pin and sync.
+# Use this on work machines in place of `doom upgrade`, which always
+# chases upstream master and would silently overshoot the pin.
+set -euo pipefail
+
+EMACSDIR="${EMACSDIR:-$HOME/.emacs.d}"
+DOOMDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+pin=$(grep -v '^[[:space:]]*#' "$DOOMDIR/doom-pin" | tr -d '[:space:]')
+[ -n "$pin" ] || { echo "!! no revision found in $DOOMDIR/doom-pin" >&2; exit 1; }
+
+# Guard the superproject's own files; the submodule is force-updated below.
+if [ -n "$(git -C "$EMACSDIR" status --porcelain --ignore-submodules=all)" ]; then
+    echo "!! $EMACSDIR has uncommitted changes; refusing to touch it" >&2
+    git -C "$EMACSDIR" status --short --ignore-submodules=all >&2
+    exit 1
+fi
+
+git -C "$EMACSDIR" fetch origin
+# Detached on purpose: leaving master untouched means `git status` never
+# reports "behind origin/master" and never invites a pull that breaks the pin.
+git -C "$EMACSDIR" checkout --detach "$pin"
+git -C "$EMACSDIR" submodule update -f --init --recursive
+
+# -u moves packages to the pins recorded at this revision.
+"$EMACSDIR/bin/doom" sync -u
