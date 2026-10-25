@@ -161,6 +161,21 @@
   (clipboard-yank)
   (deactivate-mark))
 
+(defun henrique/open-directory-externally ()
+  "Open the current buffer's directory in the system file manager.
+In Dired, open the directory being browsed.  In a file buffer, open
+the file's parent directory; otherwise use `default-directory'."
+  (interactive)
+  (let ((directory (cond ((derived-mode-p 'dired-mode)
+                          (dired-current-directory))
+                         (buffer-file-name
+                          (file-name-directory buffer-file-name))
+                         (t default-directory))))
+    (when (file-remote-p directory)
+      (user-error "Cannot open a remote directory in the local file manager"))
+    (require 'embark)
+    (embark-open-externally (expand-file-name directory))))
+
 ;; Open dired at project root when switching projects.
 (setq projectile-switch-project-action #'projectile-dired)
 
@@ -184,6 +199,8 @@
        :desc "Scratch buffer" "s" #'doom/switch-to-scratch-buffer
        :desc "Kill buffer & window" "D" #'kill-buffer-and-window
        :desc "List buffers (ibuffer)" "l" #'ibuffer)
+      (:prefix "f"
+       :desc "Open directory in file manager" "o" #'henrique/open-directory-externally)
       (:prefix "w"
        :desc "Other window" "TAB" #'other-window
        :desc "Maximize buffer" "m" #'doom/window-maximize-buffer
