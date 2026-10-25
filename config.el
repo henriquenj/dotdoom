@@ -63,6 +63,11 @@
   (unless (display-graphic-p)
     (setq diff-hl-highlight-reference-function nil)))
 
+;; Reduce subprocess work on Windows.
+(when (featurep :system 'windows)
+  (load! "windows-performance"))
+
+
 ;; Spacemacs-style expand-region flow: `SPC v` to expand, then `V` to contract.
 (after! expand-region
   (setq expand-region-contract-fast-key "V"))
